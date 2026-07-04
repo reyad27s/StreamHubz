@@ -5,34 +5,14 @@
     "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/Bangladesh.png"
   },
   {
-    "name": "Toffee (Premium)",
+    "name": "Toffee",
     "url": "https://toffee-stream-keeper.lovable.app/toffee.m3u",
     "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/toffee.png"
   },
   {
-    "name": "FiFaWC 🤝 Toffee (Reliable)",
-    "url": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/m3u/toffee_worldcup.m3u",
-    "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/toffee_%26_fifa.png"
-  },
-  {
-    "name": "FiFaWC 🤝 Bangladesh (Reliable)",
-    "url": "https://summer-firefly-d294.marufhossainkeyas.workers.dev/",
-    "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/bangladesh_%26_fifa.png"
-  },
-  {
-    "name": "2.0 FiFaWC 🤝 Bangladesh (Reliable)",
+    "name": "FiFa WC Bangladesh (Reliable)",
     "url": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/m3u/FIFA%20BD.m3u",
     "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/bangladesh_%26_fifa.png"
-  },
-  {
-    "name": "FIFA LIVE 🏆",
-    "url": "https://throbbing-wood-f62f.marufhossainkeyas.workers.dev/Fifaworldcup",
-    "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/Fifa_2026.png"
-  },
-  {
-    "name": "CRICKET LIVE",
-    "url": "https://throbbing-wood-f62f.marufhossainkeyas.workers.dev/Cricket",
-    "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/Cricket.png"
   },
   {
     "name": "Akash Go (Reliable)",
