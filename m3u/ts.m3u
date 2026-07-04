@@ -1,0 +1,141 @@
+#EXTM3U
+
+#EXTINF:-1 group-title="Bangladesh",Bioscope Plus 🇧🇩
+https://bioscope.sm-monirulislam-exp.workers.dev/bioscope.m3u8
+#EXTINF:-1 group-title="Bangladesh",Z Bangla HD 🇧🇩
+https://d1g8wgjurz8via.cloudfront.net/bpk-tv/ColorsHD/default/Zeebanglahd.m3u8
+
+#EXTINF:-1 group-title="beIN Sports",BeIN Sports 1
+https://amg01334-beinsportsllc-beinxtraesp-localnow-aekzc.amagi.tv/playlistR1080p.m3u8
+#EXTINF:-1 group-title="beIN Sports",BeIN Sports 2 (TR)
+https://andro.226503.xyz/checklist/androstreamlivebs2.m3u8
+#EXTINF:-1 group-title="beIN Sports",BeIN Sports 3 (TR)
+https://andro.226503.xyz/checklist/androstreamlivebs3.m3u8
+#EXTINF:-1 group-title="beIN Sports",BeIN Sports 4 (TR)
+https://andro.226503.xyz/checklist/androstreamlivebs4.m3u8
+#EXTINF:-1 group-title="beIN Sports",BeIN Sports 5 (TR)
+https://andro.226503.xyz/checklist/androstreamlivebs5.m3u8
+#EXTINF:-1 group-title="beIN Sports",BeIN Sports Turkey 1
+https://andro.226503.xyz/checklist/androstreamlivebiraz1.m3u8
+#EXTINF:-1 group-title="beIN Sports",BeIN Sports Xtra
+https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8
+#EXTINF:-1 group-title="beIN Sports",BeIN Sports Xtra Español
+https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8
+
+#EXTINF:-1 group-title="Real Madrid TV",Real Madrid TV (Español)
+https://rmtv.akamaized.net/hls/live/2043153/rmtv-es-web/master.m3u8
+#EXTINF:-1 group-title="Real Madrid TV",Real Madrid TV (English)
+https://rmtv.akamaized.net/hls/live/2043154/rmtv-en-web/master.m3u8
+
+#EXTINF:-1 group-title="Red Bull TV",Red Bull TV (Austria)
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8
+#EXTINF:-1 group-title="Red Bull TV",Red Bull TV (Brasil)
+https://d03ae6b5c6724c24867e97a3dc04934a.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-1026-WORBBRPTFAST-WHALETVPLUS/1026/hls/master/playlist.m3u8
+#EXTINF:-1 group-title="Red Bull TV",Red Bull TV (Australia)
+https://db34cc6127ac459db55cab5f97cd66b9.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-680-WORBAUENFAST-WHALETVPLUS/680/whaletvplus/hls/master/playlist.m3u8
+#EXTINF:-1 group-title="Red Bull TV",Red Bull TV (España)
+https://886bd3fbc782459f8de7555d32d7e9ce.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-957-WORBLATAMESFAST-WHALETVPLUS/957/whaletvplus/hls/master/playlist.m3u8
+
+#EXTINF:-1 group-title="RS Network (Brazil)",RS News
+https://video07.logicahost.com.br/rsnews01/rsnews01/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS News Web
+https://video01.logicahost.com.br/rsnewswebtv/rsnewswebtv/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS Sports 2
+https://video07.logicahost.com.br/rssports02/rssports02/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS Sports 3
+https://video07.logicahost.com.br/rssports03/rssports03/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS Sports 4
+https://video07.logicahost.com.br/rssports04/rssports04/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS Sports 5
+https://video03.logicahost.com.br/rssports5/rssports5/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS TV
+https://video07.logicahost.com.br/rstv1/rstv1/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS Premiere
+https://video03.logicahost.com.br/rspremiere/rspremiere/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS Premiere 2
+https://video03.logicahost.com.br/rspremiere2/rspremiere2/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS Premiere 3
+https://video03.logicahost.com.br/rspremiere3/rspremiere3/playlist.m3u8
+#EXTINF:-1 group-title="RS Network (Brazil)",RS Premiere 4
+https://video03.logicahost.com.br/rspremiere4/rspremiere4/playlist.m3u8
+
+#EXTINF:-1 group-title="US/LATAM",Fox Sports FHD
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=f6564ec2aee819046328a0e153be574d:ff46a8a1031eb27ef22576a077c98ab7
+https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/enc/ajfoeddkbz/out/v1/b78800b9b2304879b15843f455836829/cenc.mpd
+#EXTINF:-1 group-title="US/LATAM",FS 1
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=5466ebd70704bdeb657f0abf3c5ca4ef:bdd79b72d8e48ed483aa623cc38a8a16
+https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/fsu3wl2rwb/out/v1/be61206c04e643349d53fb22301f3b50/cenc.mpd
+#EXTINF:-1 group-title="US/LATAM",ITV Sports - AQ
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=30089c52924f037b225b82c616fee2a5:f55dc8b66ed4fc6753d6035ae7e17144
+https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/0eiyyz8qzm/out/v1/dd17af8835fe4bd087d1a4e359b635d7/cenc.mpd|user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36
+#EXTINF:-1 group-title="US/LATAM",FOX NY
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00488-foxdigital-wnyw-lgus/playlist.m3u8
+#EXTINF:-1 group-title="US/LATAM",FOX 11 Green Bay WI (WLUK)
+https://linear-702.frequency.stream/dist/stirr/702/hls/master/playlist.m3u8
+#EXTINF:-1 group-title="US/LATAM",FOX Sports
+https://d1jzu95oc8fgt3.cloudfront.net/FOX_Sports720p.m3u8
+#EXTINF:-1 group-title="US/LATAM",Telemundo
+https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream1/master.m3u8
+#EXTINF:-1 group-title="US/LATAM",Estrella TV (Deporte)
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00567-estrellamedia-estrellatv-distrotv/playlist.m3u8
+#EXTINF:-1 group-title="US/LATAM",Azteca 7a
+https://estrellatv-roku.amagi.tv/playlist.m3u8
+
+#EXTINF:-1 group-title="Sports Tribal Network",Choppertown
+https://7d8dc76d676946ec8d372d4ed7b22333.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-11-CHOPPERTOWN-SPORTSTRIBAL/mt/sportstribaltv/11/hls/master/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",Commune
+https://082cdda06abe450a84acd825e814a6b8.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/SportsTribal-eu_Commune-1/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",Drone TV
+https://a480c1a918694b47b63f7ba07a0f1dc2.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/SportsTribal-eu_DroneTV/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",Field & Stream
+https://3100d8a6ad764beb9da3c6ebf285ba1b.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-600-OUTDOORAMERICA-FREELIVESPORTS/mt/freelivesports/600/hls/master/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",Fight Network
+https://amg00966-amg00966c10-amgplt0201.playout.now3.amagi.tv/playlist/amg00966-amg00966c10-amgplt0201/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",Fuel TV
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01074-fueltv-fueltvemeaen-sportstribal/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",GoPro
+https://3a1b4d927c02473b806350cc162d271f.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-891-GOPRO-FREELIVESPORTS/mt/freelivesports/891/hls/master/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",H2O TV
+https://1261a78709344810a5b834d397509879.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-738-H2OTV-SPORTSTRIBALTV/mt/sportstribaltv/738/hls/master/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",Hard Knocks
+https://d3uyzhwvmemdyf.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/HardKnocks-SportsTribalV2/121.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",Harlem Globetrotters
+https://32d0f0785a2a46d28117199f63ad73ea.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/SportsTribal-eu_TheHarlemGlobeTrotters/playlist.m3u8
+#EXTINF:-1 group-title="Sports Tribal Network",Horse & Country
+https://hncfree-sportstribal.amagi.tv/hls/amagi_hls_data_sportstri-hncfree-sportstribal/CDN/playlist.m3u8
+
+#EXTINF:-1 group-title="Others" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/9/9c/FIFA%2B_%282025%29.svg",FIFA+
+https://f7ccf7fc.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLXB0X0ZJRkFQbHVzUG9ydHVndWVzZV9ITFM/playlist.m3u8
+#EXTINF:-1 group-title="Others",Caze TV
+https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8
+#EXTINF:-1 group-title="Others",CIGNAL TV
+https://qp-pldt-live-bpk-ucd-prod.akamaized.net/bpk-tv/ch299/default/index.mpd
+#EXTINF:-1 group-title="Others",Live Sports 4
+https://andro.226503.xyz/checklist/androstreamliveexn2.m3u8
+#EXTINF:-1 group-title="Others",DD Sports
+https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
+#EXTINF:-1 group-title="Others",MTR Sports 1
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg02873-kravemedia-mtrspt1-distrotv/playlist.m3u8
+#EXTINF:-1 group-title="Others",NEXT TV
+https://next.badinan.xyz/nexttv/FHD/playlist.m3u8
+#EXTINF:-1 group-title="Others",FIFA Live
+https://andro.226503.xyz/checklist/androstreamlivebs1.m3u8
+#EXTINF:-1 group-title="Others",IDMAN TV 🇹🇷
+https://str2.yodacdn.net/idman_300_to_small/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Others",2TV Sport 🇳🇴
+https://tv.cdn.xsg.ge/gpb-2tv/index.m3u8
+#EXTINF:-1 group-title="Others",Turkmenistan Sport 🇹🇲
+https://alpha.tv.online.tm/legacyhls/ch004_720/index.m3u8
+#EXTINF:-1 group-title="Others",Caze TV HD (DRM)
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=34475edab991ad5e92548aebd710410a:501b209cccd323ac00bf5ac15b406cb4
+https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/3ynrpdanq2/out/v1/81fd4c26584044d2b1a1cc5b32fa9af0/cenc.mpd
