@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KSLIVE — Free Live TV Streaming</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <meta name="google-site-verification" content="exsIHrvobdrnubpQyM74xkcOP8VdjYaUUXF3DKQacLo" />
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22KSLIVE%22%2C%22short_name%22%3A%22KSLIVE%22%2C%22description%22%3A%22Free%20TV%20channels%20live%20streaming%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%220d1117%22%2C%22theme_color%22%3A%221565C0%22%2C%22orientation%22%3A%22normal%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22.%2Fimage%2Fkslive.svg%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+  <meta name="theme-color" content="#1565C0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KSLIVE">
+
+  <link rel="icon" type="image/svg+xml" href="./image/kslive.svg">
+  <link rel="apple-touch-icon" href="./image/kslive.svg">
+
+  <!-- SEO: Primary Meta -->
+  <meta name="title" content="KSLIVE — Free Live TV Streaming">
+  <meta name="description" content="Watch 119+ live TV channels for free. Sports, Movies, News, Bangla & more. No login required. Works as PWA on Android & iOS.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://marufhossainkeyas11.github.io/kslive/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://marufhossainkeyas11.github.io/kslive/">
+  <meta property="og:title" content="KSLIVE — Free Live TV Streaming">
+  <meta property="og:description" content="Watch 119+ live TV channels for free. Sports, Movies, News, Bangla & more. No login required.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/ogimage.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://marufhossainkeyas11.github.io/kslive/">
+  <meta name="twitter:title" content="KSLIVE — Free Live TV Streaming">
+  <meta name="twitter:description" content="Watch 119+ live TV channels for free. Sports, Movies, News, Bangla & more. No login required.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/ogimage.png">
+
+  <!-- Structured Data: Product/App signal for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "KSLIVE",
+    "url": "https://marufhossainkeyas11.github.io/kslive/",
+    "description": "Watch 119+ live TV channels for free. Sports, Movies, News, Bangla & more. No login required. Works as PWA on Android & iOS.",
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "softwareVersion": "1.9.3",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BDT"
+    },
+    "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/ogimage.png"
+  }
+  </script>
+
+  <link rel="stylesheet" href="./css/style.css">
+  <script>
+    if ('serviceWorker' in navigator) {
+      const SW_SRC = `
+        const CACHE = 'kslive-v2';
+        const STATIC = ['./kslive.svg'];
+
+        self.addEventListener('install', e => {
+          e.waitUntil(caches.open(CACHE).then(c => c.addAll(STATIC)));
+          self.skipWaiting();
+        });
+
+        self.addEventListener('activate', e => {
+          e.waitUntil(
+            caches.keys()
+              .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+          );
+          self.clients.claim();
+        });
+
+        self.addEventListener('fetch', e => {
+          const req = e.request;
+          const url = new URL(req.url);
+
+          if (url.pathname.endsWith('.svg')) {
+            e.respondWith(
+              caches.match(req).then(r => r || fetch(req))
+            );
+            return;
+          }
+
+          if (
+            url.hostname !== self.location.hostname ||
+            url.pathname.includes('.m3u') ||
+            url.pathname.includes('.m3u8') ||
+            url.pathname.includes('.ts') ||
+            url.pathname.includes('.json')
+          ) {
+            e.respondWith(fetch(req));
+            return;
+          }
+
+          e.respondWith(
+            fetch(req, { priority: 'high' })
+              .then(res => {
+                if (res.ok) {
+                  const clone = res.clone();
+                  caches.open(CACHE).then(c => c.put(req, clone));
+                }
+                return res;
+              })
+              .catch(() => caches.match(req))
+          );
+        });
+
+        self.addEventListener('message', e => {
+          if (e.data === 'SKIP_WAITING') self.skipWaiting();
+        });
+
+        self.addEventListener('online',  () => notifyClients('ONLINE'));
+        self.addEventListener('offline', () => notifyClients('OFFLINE'));
+
+        function notifyClients(type) {
+          self.clients.matchAll({ includeUncontrolled: true }).then(clients =>
+            clients.forEach(c => c.postMessage({ type }))
+          );
+        }
+      `;
+
+      const blob   = new Blob([SW_SRC], { type: 'application/javascript' });
+      const swUrl  = URL.createObjectURL(blob);
+
+      navigator.serviceWorker.register(swUrl, { scope: './' })
+        .then(reg => {
+          console.log('SW registered');
+
+          reg.addEventListener('updatefound', () => {
+            reg.installing?.addEventListener('statechange', function () {
+              if (this.state === 'installed' && navigator.serviceWorker.controller) {
+                reg.waiting?.postMessage('SKIP_WAITING');
+              }
+            });
+          });
+        })
+        .catch(e => console.warn('SW failed:', e));
+
+      navigator.serviceWorker.addEventListener('message', ({ data }) => {
+        if (data?.type === 'OFFLINE') {
+          showToast("⚠️ No internet — stream won't load", 5000);
+        } else if (data?.type === 'ONLINE') {
+          showToast('✅ Connection is back.', 2500);
+        }
+      });
+    }
+  </script>
+  <script async src="./js/umami.js" data-website-id="7f546f13-8a72-485b-87d2-5f6dee6fb1d9"></script>
+</head>
+
+<body>
+  
+  <!-- Loading -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loader-logo">KEYASLIVE</div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar"></div>
+    </div>
+    <div class="loader-text" id="loadText"><!--Parsing playlists…--></div>
+  </div>
+  
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+  
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="logo">KS<span>LIVE</span></div>
+    <div class="playlist-selector">
+      <div class="pl-label">Source</div>
+      <button class="pl-scroll-btn left" id="plScrollLeft" title="Scroll left">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M10 3 5 8l5 5"/>
+        </svg>
+      </button>
+      <div class="playlist-tabs-wrap">
+        <div class="playlist-tabs" id="playlistTabs"></div>
+      </div>
+      <button class="pl-scroll-btn right" id="plScrollRight" title="Scroll right">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 3l5 5-5 5"/>
+        </svg>
+      </button>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="refreshBtn" title="Refresh" onclick="(function(){try{if(typeof loadPlaylist==='function'){loadPlaylist();}else{location.reload();}}catch(e){location.reload();}})()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+          <path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z" />
+        </svg>
+      </button>
+      <button class="icon-btn" id="sidebarToggle" title="Toggle Sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+          <path d="M120-680v-80h720v80H120Zm0 480v-80h720v80H120Zm0-240v-80h720v80H120Z" />
+        </svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" title="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="8" cy="8" r="3.5" />
+          <line x1="8" y1="1" x2="8" y2="2.5" />
+          <line x1="8" y1="13.5" x2="8" y2="15" />
+          <line x1="1" y1="8" x2="2.5" y2="8" />
+          <line x1="13.5" y1="8" x2="15" y2="8" />
+          <line x1="3.05" y1="3.05" x2="4.12" y2="4.12" />
+          <line x1="11.88" y1="11.88" x2="12.95" y2="12.95" />
+          <line x1="12.95" y1="3.05" x2="11.88" y2="4.12" />
+          <line x1="4.12" y1="11.88" x2="3.05" y2="12.95" />
+        </svg>
+      </button>
+      <button class="icon-btn" id="mobileSidebarBtn" title="Channels" style="display:none">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="1" y="1" width="6" height="6" rx="1.5" />
+          <rect x="9" y="1" width="6" height="6" rx="1.5" />
+          <rect x="1" y="9" width="6" height="6" rx="1.5" />
+          <rect x="9" y="9" width="6" height="6" rx="1.5" />
+        </svg>
+      </button>
+    </div>
+  </header>
+  
+  <!-- Main -->
+  <div class="main">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="search-wrap">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="6.5" cy="6.5" r="5" />
+            <line x1="10.5" y1="10.5" x2="15" y2="15" />
+          </svg>
+          <input class="search-input" id="searchInput" type="text" placeholder="Search channels…">
+        </div>
+        <div class="group-filters" id="groupFilters"></div>
+      </div>
+      <div class="channel-list" id="channelList"></div>
+    </aside>
+    
+    <!-- Player + Info -->
+    <div class="player-area">
+      <!-- Video -->
+      <div class="video-wrap" id="videoWrap">
+        <video id="videoEl" playsinline></video>
+        
+        <div class="buffer-spinner" id="bufferSpinner"></div>
+
+        <div class="speed-indicator" id="speedIndicator">
+          <div class="speed-indicator-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+              <path d="M240-280v-80h80v80h-80Zm-120 0v-320H40v-80h160v400h-80Zm500 0 120-200-120-200h80l80 133 80-133h80L820-480l120 200h-80l-80-133-80 133h-80Zm-260 0v-80h140v-80H360v-240h220v80H440v80h60q33 0 56.5 23.5T580-440v80q0 33-23.5 56.5T500-280H360Z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fast-forward-fill" viewBox="0 0 16 16">
+              <path d="M7.596 7.304a.802.802 0 0 1 0 1.392l-6.363 3.692C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696z" />
+              <path d="M15.596 7.304a.802.802 0 0 1 0 1.392l-6.363 3.692C8.713 12.69 8 12.345 8 11.692V4.308c0-.653.713-.998 1.233-.696z" />
+            </svg>
+          </div>
+        </div>
+        
+        <div class="now-playing-bar" id="nowPlayingBar">
+          <div style="display:flex;align-items:center;gap:10px">
+            <img class="np-logo" id="npLogo" src="" alt="">
+            <span class="np-name" id="npName">—</span>
+          </div>
+          <span class="live-badge">LIVE</span>
+        </div>
+        
+        <div class="vid-overlay" id="vidOverlay">
+          <div class="big-play" id="bigPlay">
+            <svg id="bigPlayIcon" width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white">
+              <path id="bpIcon" d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+            </svg>
+          </div>
+        </div>
+        
+        <div class="vid-controls">
+          <div class="progress-bar-wrap" id="progressWrap">
+            <div class="progress-fill" id="progressFill">
+              <div class="progress-thumb"></div>
+            </div>
+          </div>
+          <div class="controls-row">
+            <span style="display:flex; transform: translateX(-4px); gap:2px">
+              <button class="ctrl-btn" id="playPauseBtn" title="Play/Pause">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
+                  <path id="ppIcon" d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </button>
+              <button class="ctrl-btn" id="prevBtn" title="Previous">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 4a.5.5 0 0 1 1 0v3.248l6.267-3.636c.54-.313 1.232.066 1.232.696v7.384c0 .63-.692 1.01-1.232.697L5 8.753V12a.5.5 0 0 1-1 0z" />
+                </svg>
+              </button>
+              <button class="ctrl-btn" id="nextBtn" title="Next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.693 3.3 4 3.678 4 4.308v7.384c0 .63.692 1.01 1.233.697L11.5 8.753V12a.5.5 0 0 0 1 0z" />
+                </svg>
+              </button>
+              
+              <!-- Mute only (no slider here) -->
+              <button class="ctrl-btn" id="muteBtn" title="Mute">
+                <svg width="24" height="24" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                  <path id="volIcon" d="M9 4a.5.5 0 0 0-.812-.39L5.825 5.5H3.5A.5.5 0 0 0 3 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 9 12zm3.025 4a4.5 4.5 0 0 1-1.318 3.182L10 10.475A3.5 3.5 0 0 0 11.025 8 3.5 3.5 0 0 0 10 5.525l.707-.707A4.5 4.5 0 0 1 12.025 8" />
+                </svg>
+              </button>
+            </span>
+            <!-- Volume slider: desktop only -->
+            <input class="vol-slider vol-slider-desktop" id="volSlider" type="range" min="0" max="130" step="1" value="100">
+            
+            <div class="ctrl-spacer"></div>
+            
+            <span class="time-display" id="timeDisplay">LIVE</span>
+            
+            <span class="quality-badge" id="qualityBadge">HLS</span>
+
+            <!-- CC / Subtitles standalone button -->
+            <button class="ctrl-btn" id="ccBtn" title="Subtitles/CC" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cc-square" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.408 3.89c-.83 0-1.318.64-1.318 1.753v.742c0 1.108.479 1.727 1.318 1.727.69 0 1.138-.435 1.187-1.05h1.147v.114c-.058 1.147-1.029 1.938-2.343 1.938-1.612 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.319 0 2.29.812 2.343 1.999v.11H6.595c-.049-.638-.506-1.108-1.187-1.108Zm5.404 0c-.831 0-1.319.64-1.319 1.753v.742c0 1.108.48 1.727 1.319 1.727.69 0 1.138-.435 1.186-1.05h1.147v.114c-.057 1.147-1.028 1.938-2.342 1.938-1.613 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.318 0 2.29.812 2.342 1.999v.11h-1.147c-.048-.638-.505-1.108-1.186-1.108Z" />
+              </svg>
+            </button>
+            
+            <!-- More menu -->
+            <div class="more-menu-wrap">
+              <button class="ctrl-btn" id="moreBtn" title="More">
+                <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                  <circle cx="3" cy="8" r="1.4" />
+                  <circle cx="8" cy="8" r="1.4" />
+                  <circle cx="13" cy="8" r="1.4" />
+                </svg>
+              </button>
+              <div class="more-popup" id="morePopup">
+                <div class="more-popup-inner" id="morePopupInner">
+                  
+                  <!-- ── MAIN PANEL ── -->
+                  <div class="more-panel more-panel-main" id="morePanelMain">
+
+                    <!-- Orientation Lock (fullscreen only) -->
+                    <div class="more-popup-row" id="moreOrientRow" style="display:none; cursor:pointer; color:#fff;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 -960 960 960" fill="currentColor">
+                        <path d="M487-104 150-440h114l280 280 200-200H640v-80h240v240h-80v-104L600-104q-23 23-56.5 23T487-104ZM80-520v-240h80v104l200-200q23-23 56.5-23t56.5 23l337 336H696L416-800 216-600h104v80H80Z" />
+                      </svg>
+                      <span class="more-popup-label" style="flex:1">Rotate Screen</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                      </svg>
+                    </div>
+                    
+                    <div class="more-popup-divider"></div>
+                    
+                    <!-- Volume row (mobile) -->
+                    <div class="more-popup-row" id="moreVolRow">
+                      <svg width="21" height="21" viewBox="0 0 16 16" fill="currentColor" style="color:#fff;flex-shrink:0;transform:translateX(-2px)">
+                        <path id="volIcon2" d="M9 4a.5.5 0 0 0-.812-.39L5.825 5.5H3.5A.5.5 0 0 0 3 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 9 12zm3.025 4a4.5 4.5 0 0 1-1.318 3.182L10 10.475A3.5 3.5 0 0 0 11.025 8 3.5 3.5 0 0 0 10 5.525l.707-.707A4.5 4.5 0 0 1 12.025 8" />
+                      </svg>
+                      <span class="more-popup-label">Volume</span>
+                      <input class="vol-slider" id="volSliderMobile" type="range" min="0" max="130" step="1" value="100">
+                    </div>
+                    
+                    <div class="more-popup-divider"></div>
+                    
+                    <!-- Quality control -->
+                    <div class="more-popup-row more-qual-trigger" id="moreQualRow" style="cursor:pointer; color:#fff;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 -960 960 960">
+                        <path d="M120-200v-80h720v80H120Zm0-160v-80h720v80H120Zm0-160v-80h720v80H120Zm0-160v-80h720v80H120Z" />
+                      </svg>
+                      <span class="more-popup-label">Quality</span>
+                      <div class="more-qual-trigger-right">
+                        <span class="more-qual-current" id="moreQualCurrent">AUTO</span>
+                        <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:rgba(255,255,255,0.35)">
+                          <path d="M6 3l5 5-5 5" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    <div class="more-popup-divider"></div>
+
+                    <!-- Audio Track control -->
+                    <div class="more-popup-row more-qual-trigger disabled-row" id="moreAudioRow" style="cursor:pointer; color:#fff;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 -960 960 960">
+                        <path d="M160-80q-33 0-56.5-23.5T80-160v-640q0-33 23.5-56.5T160-880h326l-80 80H160v640h440v-80h80v80q0 33-23.5 56.5T600-80H160Zm80-160v-80h280v80H240Zm0-120v-80h200v80H240Zm360 0L440-520H320v-200h120l160-160v520Zm80-122v-276q36 21 58 57t22 81q0 45-22 81t-58 57Zm0 172v-84q70-25 115-86.5T840-620q0-78-45-139.5T680-846v-84q104 27 172 112.5T920-620q0 112-68 197.5T680-310Z" />
+                      </svg>
+                      <span class="more-popup-label">Audio</span>
+                      <div class="more-qual-trigger-right">
+                        <span class="more-qual-current" id="moreAudioCurrent">DEFAULT</span>
+                        <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:rgba(255,255,255,0.35)">
+                          <path d="M6 3l5 5-5 5" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    <div class="more-popup-divider"></div>
+                    
+                    <!-- CC / Subtitles control -->
+                    <div class="more-popup-row more-qual-trigger disabled-row" id="moreCcRow" style="cursor:pointer; color:#fff;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-cc-square" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.408 3.89c-.83 0-1.318.64-1.318 1.753v.742c0 1.108.479 1.727 1.318 1.727.69 0 1.138-.435 1.187-1.05h1.147v.114c-.058 1.147-1.029 1.938-2.343 1.938-1.612 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.319 0 2.29.812 2.343 1.999v.11H6.595c-.049-.638-.506-1.108-1.187-1.108Zm5.404 0c-.831 0-1.319.64-1.319 1.753v.742c0 1.108.48 1.727 1.319 1.727.69 0 1.138-.435 1.186-1.05h1.147v.114c-.057 1.147-1.028 1.938-2.342 1.938-1.613 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.318 0 2.29.812 2.342 1.999v.11h-1.147c-.048-.638-.505-1.108-1.186-1.108Z" />
+                      </svg>
+                      <span class="more-popup-label">Subtitles</span>
+                      <div class="more-qual-trigger-right">
+                        <span class="more-qual-current" id="moreCcCurrent">OFF</span>
+                        <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:rgba(255,255,255,0.35)">
+                          <path d="M6 3l5 5-5 5" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    <div class="more-popup-divider"></div>
+
+                    <!-- PiP -->
+                    <div class="more-popup-row" id="pipRow" style="cursor:pointer; color:#fff;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5zM1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z" />
+                        <path d="M8 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5z" />
+                      </svg>
+                      <span class="more-popup-label" style="flex:1">Picture in Picture</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                      </svg>
+                    </div>
+
+                    <div class="more-popup-divider"></div>
+                    
+                    <!-- Fullscreen -->
+                    <div class="more-popup-row" id="moreFullscreenRow" style="display:none; cursor:pointer; color:#fff;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                        <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
+                      </svg>
+                      <span class="more-popup-label" style="flex:1">Fullscreen</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                      </svg>
+                    </div>
+                    
+                  </div>
+                  
+                  <!-- ── QUALITY SUB PANEL ── -->
+                  <div class="more-panel more-panel-sub" id="morePanelQuality">
+                    <div class="more-sub-hd">
+                      <button class="more-sub-back" id="moreQualBack">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2">
+                          <path d="M10 3L5 8l5 5" />
+                        </svg>
+                      </button>
+                      <span class="more-sub-title">Quality</span>
+                    </div>
+                    <div id="moreQualList">
+                      <!-- JS দিয়ে populate হবে -->
+                    </div>
+                  </div>
+
+                  <!-- ── SUBTITLES SUB PANEL ── -->
+                  <div class="more-panel more-panel-sub" id="morePanelCc">
+                    <div class="more-sub-hd">
+                      <button class="more-sub-back" id="moreCcBack">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2">
+                          <path d="M10 3L5 8l5 5" />
+                        </svg>
+                      </button>
+                      <span class="more-sub-title">Subtitles</span>
+                    </div>
+                    <div id="moreCcList">
+                      <!-- JS দিয়ে populate হবে -->
+                    </div>
+                  </div>
+
+                  <!-- ── AUDIO SUB PANEL ── -->
+                  <div class="more-panel more-panel-sub" id="morePanelAudio">
+                    <div class="more-sub-hd">
+                      <button class="more-sub-back" id="moreAudioBack">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2">
+                          <path d="M10 3L5 8l5 5" />
+                        </svg>
+                      </button>
+                      <span class="more-sub-title">Audio Track</span>
+                    </div>
+                    <div id="moreAudioList">
+                      <!-- JS দিয়ে populate হবে -->
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
+            <button class="ctrl-btn" id="orientBtn" title="Rotate Screen" style="display:none">
+              <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 -960 960 960" fill="currentColor">
+                <path d="M487-104 150-440h114l280 280 200-200H640v-80h240v240h-80v-104L600-104q-23 23-56.5 23T487-104ZM80-520v-240h80v104l200-200q23-23 56.5-23t56.5 23l337 336H696L416-800 216-600h104v80H80Z" />
+              </svg>
+            </button>
+            
+            <button class="ctrl-btn" id="audioBtn" title="Audio Track" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 -960 960 960" fill="currentColor">
+                <path d="M160-80q-33 0-56.5-23.5T80-160v-640q0-33 23.5-56.5T160-880h326l-80 80H160v640h440v-80h80v80q0 33-23.5 56.5T600-80H160Zm80-160v-80h280v80H240Zm0-120v-80h200v80H240Zm360 0L440-520H320v-200h120l160-160v520Zm80-122v-276q36 21 58 57t22 81q0 45-22 81t-58 57Zm0 172v-84q70-25 115-86.5T840-620q0-78-45-139.5T680-846v-84q104 27 172 112.5T920-620q0 112-68 197.5T680-310Z" />
+              </svg>
+            </button>
+                        
+            <button class="ctrl-btn" id="pipBtn" title="Picture in Picture">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5zM1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z" />
+                <path d="M8 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5z" />
+              </svg>
+            </button>
+            
+            <button class="ctrl-btn" id="fullscreenBtn" title="Fullscreen" style="margin-right: 2px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Info Panel -->
+      <div class="info-panel" id="infoPanel">
+        <!-- Empty state -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">📺</div>
+          <div class="empty-title">Select a channel to start</div>
+          <div class="empty-sub">Choose from the sidebar on the left</div>
+        </div>
+        
+        <!-- Channel detail (hidden until channel selected) -->
+        <div id="channelDetail" style="display:none">
+          <div class="ch-detail-header">
+            <div class="ch-detail-logo" id="detailLogo">TV</div>
+            <div class="ch-detail-info">
+              <div class="ch-detail-name" id="detailName">Channel Name</div>
+              <div class="ch-detail-meta" id="detailMeta"></div>
+            </div>
+            <button class="ctrl-btn" id="shareBtn" title="Share Channel" style="color: var(--text); padding: 10px; margin: 0 10px 0 0;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5" />
+              </svg>
+            </button>
+          </div>
+          
+          <!--div class="stream-url-row" id="streamUrlRow">
+          <div class="stream-url-text" id="streamUrlText">—</div>
+          <button class="copy-btn" id="copyUrlBtn">Copy URL</button>
+        </div-->
+          
+          <!-- Error state -->
+          <div class="error-state" id="errorState">
+            <div class="error-icon">⚠️</div>
+            <div class="error-title">Stream Unavailable</div>
+            <div class="error-msg" id="errorMsg">Could not load this stream. It may be offline or geo-restricted.</div>
+            <button class="retry-btn" id="retryBtn">Retry</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Status Bar -->
+      <div class="statusbar">
+        <div class="status-item">
+          <div class="status-dot" id="connDot" style="background:var(--t3)"></div>
+          <span id="connStatus">Idle</span>
+        </div>
+        <div class="status-item" id="codecInfo" style="display:none">
+          <span id="codecText">—</span>
+        </div>
+        <div class="ctrl-spacer"></div>
+        <div class="status-item" id="chCountInfo">
+          <span id="chCount">0 channels</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="pwa-popup">
+    <div class="pwa-top">
+      <div class="pwa-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2" />
+          <line x1="12" y1="18" x2="12" y2="18.01" />
+        </svg>
+      </div>
+      <div>
+        <div class="pwa-title">Install App</div>
+        <div class="pwa-sub">Get the full experience — works offline too.</div>
+      </div>
+    </div>
+    <div class="pwa-steps" id="pwa-steps">
+      <div class="pwa-step"><i>1</i>
+        <span>Tap the <strong>Share</strong>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin:0 1px">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+            <polyline points="16 6 12 2 8 6" />
+            <line x1="12" y1="2" x2="12" y2="15" />
+          </svg>
+          button at the bottom
+        </span>
+      </div>
+      <div class="pwa-step"><i>2</i><span>Select <strong>"Add to Home Screen"</strong></span></div>
+      <div class="pwa-step"><i>3</i><span>Tap <strong>"Add"</strong> — you're done!</span></div>
+    </div>
+    <div class="pwa-btns">
+      <button id="pwa-install">Install</button>
+      <button id="pwa-dismiss">Not now</button>
+    </div>
+  </div>
+  <script>
+    //Prevent Zoom
+    document.addEventListener('touchstart', function(event) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+    
+    document.addEventListener('wheel', function(event) {
+      if (event.ctrlKey) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+    
+    document.addEventListener('touchmove', function(event) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+  </script>
+  <script src="./js/pwa-install.js"></script>
+  <script src="./js/player.js"></script>
+  <script src="./js/control.js"></script>
+  
+</body>
+
+</html>
