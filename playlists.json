@@ -20,6 +20,11 @@
     "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/Akash_Go.png"
   },
   {
+    "name": "Willow Sports (Premium)",
+    "url": "https://raw.githubusercontent.com/srhady/willow-event/refs/heads/main/live_sports.m3u",
+    "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/willow.jpg"
+  },
+  {
     "name": "Tapmad Sports (Premium)",
     "url": "https://raw.githubusercontent.com/srhady/tapmad-bd/refs/heads/main/tapmad_bd.m3u",
     "image": "https://raw.githubusercontent.com/marufhossainkeyas11/kslive/refs/heads/main/image/tapmad.png"
